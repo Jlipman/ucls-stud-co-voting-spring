@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.params=username\ password
+comment0.target=FAH(java.lang.String,\ java.lang.String)
+comment1.params=username
+comment1.target=boolean\ checkIfValid(java.lang.String)
+comment2.params=who\ username
+comment2.target=void\ vote(fullBallot,\ java.lang.String)
+numComments=3

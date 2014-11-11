@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.params=username\ password
+comment0.target=Results(java.lang.String,\ java.lang.String)
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+comment2.params=col
+comment2.target=int\ searchForEmpty(int)
+numComments=3
