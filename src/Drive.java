@@ -30,75 +30,82 @@ import com.google.gdata.util.*;
 import java.io.IOException;
 import java.net.*;
 
-public class Drive
-{
+public class Drive {
+
     SpreadsheetService service;
     SpreadsheetEntry spreadsheet;
     WorksheetEntry worksheet;
     SpreadsheetFeed feed;
+
     //password: notasecret
-    public Drive(String username, String password, String nameOfSpreadsheet) 
-    {
-        try{
-            service =
-            new SpreadsheetService("MySpreadsheetIntegration-v1");
+
+    public Drive(String username, String password, String nameOfSpreadsheet) {
+        try {
+            service
+                    = new SpreadsheetService("MySpreadsheetIntegration-v1");
             service.setUserCredentials(username, password);
             URL SPREADSHEET_FEED_URL = new URL(
                     "https://spreadsheets.google.com/feeds/spreadsheets/private/full");
 
             // Make a request to the API and get all spreadsheets.
             feed = service.getFeed(SPREADSHEET_FEED_URL,
-                SpreadsheetFeed.class);
+                    SpreadsheetFeed.class);
             List<SpreadsheetEntry> spreadsheets = feed.getEntries();
 
             spreadsheet = spreadsheets.get(0);
             System.out.println(spreadsheet.getTitle().getPlainText());
 
-            for(SpreadsheetEntry a: spreadsheets){
-                if(a.getTitle().getPlainText().equals(nameOfSpreadsheet)){
-                    spreadsheet=a;
+            for (SpreadsheetEntry a : spreadsheets) {
+                if (a.getTitle().getPlainText().equals(nameOfSpreadsheet)) {
+                    spreadsheet = a;
                 }
             }
 
             List<WorksheetEntry> worksheets = spreadsheet.getWorksheets();
-            worksheet=worksheets.get(0);
-        }catch(Exception e){System.out.println(e);}
+            worksheet = worksheets.get(0);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
-    public void set(int x, int y, String value){
-        try{
+    public void set(int x, int y, String value) {
+        try {
             URL cellFeedUrl = worksheet.getCellFeedUrl();
             CellFeed cellFeed = service.getFeed(cellFeedUrl, CellFeed.class);
             for (CellEntry cell : cellFeed.getEntries()) {
-                if(cell.getId().substring(cell.getId().lastIndexOf('/') + 1).equals("R"+y+"C"+x)){
+                if (cell.getId().substring(cell.getId().lastIndexOf('/') + 1).equals("R" + y + "C" + x)) {
                     cell.changeInputValueLocal(value);
                     cell.update();
                     break;
                 }
             }
-        }catch(Exception e){System.out.println(e);}
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
-    public String get(int x, int y){
-        String values="";
-        try{
+    public String get(int x, int y) {
+        String values = "";
+        try {
 
             URL cellFeedUrl = worksheet.getCellFeedUrl();
             CellFeed cellFeed = service.getFeed(cellFeedUrl, CellFeed.class);
             for (CellEntry cell : cellFeed.getEntries()) {
-                if(cell.getId().substring(cell.getId().lastIndexOf('/') + 1).equals("R"+y+"C"+x)){
-                    values=cell.getCell().getInputValue();
+                if (cell.getId().substring(cell.getId().lastIndexOf('/') + 1).equals("R" + y + "C" + x)) {
+                    values = cell.getCell().getInputValue();
                     break;
                 }
             }
 
-        }catch(Exception e){System.out.println(e);}
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         return values;
     }
 
-    public ArrayList<CellEntry> getList(){
+    public ArrayList<CellEntry> getList() {
         ArrayList<CellEntry> foo = new ArrayList<CellEntry>();
-        try{
+        try {
             URL cellFeedUrl = worksheet.getCellFeedUrl();
             CellFeed cellFeed = service.getFeed(cellFeedUrl, CellFeed.class);
 
@@ -106,7 +113,9 @@ public class Drive
                 foo.add(cell);
             }
 
-        }catch(Exception e){System.out.println(e);}
+        } catch (Exception e) {
+            System.out.println(e);
+        }
         return foo;
     }
 }
