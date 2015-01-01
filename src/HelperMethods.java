@@ -59,4 +59,7 @@ public class HelperMethods {
         pass.set(4, y, who.getCu1());
         pass.set(5, y, who.getCu2());
     }
+    public int getGrade(){
+        return grade;
+    }
 }

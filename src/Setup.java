@@ -19,36 +19,73 @@ public class Setup {
     private ArrayList<String> presc;
     private ArrayList<String> vpc;
     private ArrayList<String> cuc;
+    ArrayList[] allSchoolCandidates = new ArrayList[6];
+    ArrayList[][] candidates = new ArrayList[3][3];
     private String link;
     private String password;
     private Drive d;
 
     public Setup() {
+        for (int i = 0; i < 6; i++) {
+            allSchoolCandidates[i] = new ArrayList<String>();
+            if (i == 0) {
+                allSchoolCandidates[i].add("(Select All School Presedential Candidate or type in a write in)");
+            } else if (i == 1) {
+                allSchoolCandidates[i].add("(Select All School Vice Presedential Candidate or type in a write in)");
+            } else if (i == 2) {
+                allSchoolCandidates[i].add("(Select All School Cultural Union Presedential Candidate or type in a write in)");
+            } else if (i == 3) {
+                allSchoolCandidates[i].add("(Select All School Cultural Union Vice Presedential Candidate or type in a write in)");
+            } else if (i == 4) {
+                allSchoolCandidates[i].add("(Select All School Secratary Candidate or type in a write in)");
+            } else if (i == 5) {
+                allSchoolCandidates[i].add("(Select All School Treasury Candidate or type in a write in)");
+            }
+        }
+        for (int x = 0; x < 3; x++) {
+            for (int y = 0; y < 3; y++) {
+                candidates[x][y] = new ArrayList<String>();
+                if (y == 0) {
+                    candidates[x][y].add("(Select Presedential Candidate or type in a write in)");
+                } else if (y == 1) {
+                    candidates[x][y].add("(Select Vice Presidential Candidate or type in a write in)");
+                } else {
+                    candidates[x][y].add("(Select Cultural Union Candidate or type in a write in)");
+                }
+            }
+        }
+
         presc = new ArrayList<String>();
         vpc = new ArrayList<String>();
         cuc = new ArrayList<String>();
-        presc.add("(Select Presedential Candidate or type in a write in)");
-        vpc.add("(Select Vice Presidential Candidate or type in a write in)");
-        cuc.add("(Select Cultural Union Candidate or type in a write in)");
         link = "";
         password = "";
     }
 
     public void inputCands() {
         int position = 0;
+        int x = 0;
+        int y = 0;
         Path path = Paths.get("candidates.txt");
         try (Scanner scanner = new Scanner(path)) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 if (line.isEmpty()) {
                     position++;
-                } else if (position == 0) {
-                    presc.add(line);
-                } else if (position == 1) {
-                    vpc.add(line);
-                } else if (position == 2) {
-                    cuc.add(line);
+                    if (position > 6) {
+                        y++;
+                        if (y >2) {
+                           y = 0;
+                            x++; 
+                        }
+                    }
+                } else
+                if (position < 6) {
+                    allSchoolCandidates[position].add(line);
+                } else {
+                    candidates[x][y].add(line);
                 }
+                System.out.println(line);
             }
         } catch (Exception e) {
         }
@@ -78,10 +115,10 @@ public class Setup {
 
         int numberOfVoters = Integer.parseInt(JOptionPane.showInputDialog("Number of voters: "));
         DriveNewThreadSet newThread = new DriveNewThreadSet(d);
-        int gradeSize = (numberOfVoters+3) / 3;
+        int gradeSize = (numberOfVoters + 3) / 3;
         for (int j = 1; j < numberOfVoters + 3; j++) {
             String next = "";
-            if (j == gradeSize || j == gradeSize*2) {
+            if (j == gradeSize || j == gradeSize * 2) {
                 next = "grade";
             } else {
 
@@ -104,7 +141,7 @@ public class Setup {
             }
             foo.add(next);
             length = j;
-            System.out.println(j + "/" + (numberOfVoters+3));
+            System.out.println(j + "/" + (numberOfVoters + 3));
 
         }
         for (int i = 1; i < 20; i++) {
@@ -133,16 +170,34 @@ public class Setup {
         emailer.sendEmail("Enclosed are the codes for the next election. There are " + numberOfVoters + " of them. \nEnjoy. \n Jonathan Lipman", "Codes.txt");
     }
 
-    public ArrayList<String> getPresCandidates() {
-        return presc;
+    public String[] getPresCandidates(int grade) {
+        String[] temp = new String[candidates[grade][0].size()];
+        int i = 0;
+        for(String a:(ArrayList<String>)candidates[grade][0]){
+            temp[i]=a;
+            i++;
+        }
+        return temp;
     }
 
-    public ArrayList<String> getVpCandidates() {
-        return vpc;
+    public String[] getVpCandidates(int grade) {
+        String[] temp = new String[candidates[grade][1].size()];
+        int i = 0;
+        for(String a:(ArrayList<String>)candidates[grade][1]){
+            temp[i]=a;
+            i++;
+        }
+        return temp;
     }
 
-    public ArrayList<String> getCuCandidates() {
-        return cuc;
+    public String[] getCuCandidates(int grade) {
+        String[] temp = new String[candidates[grade][2].size()];
+        int i = 0;
+        for(String a:(ArrayList<String>)candidates[grade][2]){
+            temp[i]=a;
+            i++;
+        }
+        return temp;
     }
 
     public void getDriveVals(String U, String P) {

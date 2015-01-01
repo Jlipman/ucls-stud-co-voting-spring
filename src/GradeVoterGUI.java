@@ -31,17 +31,17 @@ private Setup setup;
         helper=h;
         code=c;
         pcands.removeAllItems();
-        String[] poptions = setup.getPresCandidates().toArray(new String[setup.getPresCandidates().size()]);
+        String[] poptions = setup.getPresCandidates(helper.getGrade());
         for(String cand:poptions){
             pcands.addItem(cand);
         }
         vcands.removeAllItems();
-        String[] voptions = setup.getVpCandidates().toArray(new String[setup.getVpCandidates().size()]);
+        String[] voptions = setup.getVpCandidates(helper.getGrade());
         for(String cand:voptions){
             vcands.addItem(cand);
         }
         cands.removeAllItems();
-        String[] coptions = setup.getCuCandidates().toArray(new String[setup.getCuCandidates().size()]);
+        String[] coptions = setup.getCuCandidates(helper.getGrade());
         for(String cand:coptions){
             cands.addItem(cand);
         }
@@ -50,6 +50,7 @@ private Setup setup;
             ccands.addItem(cand);
         }
         this.getContentPane().setBackground(Color.WHITE);
+        System.out.println(helper.getGrade());
     }
 
     /**
