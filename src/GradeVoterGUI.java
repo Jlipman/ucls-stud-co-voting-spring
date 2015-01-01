@@ -68,6 +68,7 @@ private Setup setup;
         cands = new javax.swing.JComboBox();
         select = new javax.swing.JButton();
         SchoolLogo = new javax.swing.JLabel();
+        Title = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Vote");
@@ -99,26 +100,34 @@ private Setup setup;
         SchoolLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SchoolLogo.gif"))); // NOI18N
         SchoolLogo.setText("jLabel1");
 
+        Title.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        Title.setText("Vote For Your Grade Representatives");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(200, Short.MAX_VALUE)
-                .addComponent(SchoolLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(select)
-                    .addComponent(pcands, 0, 300, Short.MAX_VALUE)
-                    .addComponent(vcands, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cands, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ccands, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(200, Short.MAX_VALUE))
+                .addContainerGap(293, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Title)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(SchoolLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(select)
+                            .addComponent(pcands, 0, 300, Short.MAX_VALUE)
+                            .addComponent(vcands, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cands, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ccands, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(100, Short.MAX_VALUE)
+                .addContainerGap(68, Short.MAX_VALUE)
+                .addComponent(Title, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(SchoolLogo)
                     .addGroup(layout.createSequentialGroup()
@@ -151,7 +160,7 @@ private Setup setup;
             if (result.equals(curesult)) {
                 JOptionPane.showMessageDialog(this, "You selected the same candidate for both Cultural Union inputs. You must select two different candidates");
             } else {
-                FullBallot ballot = new FullBallot();
+                GradeBallot ballot = new GradeBallot();
                 ballot.setPres(presresult);
                 ballot.setVp(vpresult);
                 ballot.setCu1(curesult);
@@ -159,13 +168,14 @@ private Setup setup;
                 Thread thread;
                 thread = new Thread(){
                     public void run(){
-                        helper.vote(ballot, code);
+                        helper.voteForGrade(ballot, code);
                     }
                 };
                 thread.start();
                 
                 this.dispose();
-                CodeValidationGUI.main(setup, helper);
+                AllSchoolVoterGUI.main(setup, helper, code);
+                
                 //finish and restart
             }
         } else {
@@ -213,6 +223,7 @@ private Setup setup;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel SchoolLogo;
+    private javax.swing.JLabel Title;
     private javax.swing.JComboBox cands;
     private javax.swing.JComboBox ccands;
     private javax.swing.JComboBox pcands;

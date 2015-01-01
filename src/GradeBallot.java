@@ -1,11 +1,12 @@
-public class FullBallot {
+public class GradeBallot {
 
     public String pres;
     public String vp;
     public String cu1;
     public String cu2;
+    
 
-    public FullBallot() {
+    public GradeBallot() {
         pres = "";
         vp = "";
         cu1 = "";

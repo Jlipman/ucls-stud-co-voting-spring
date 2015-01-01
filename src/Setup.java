@@ -20,6 +20,11 @@ public class Setup {
     private ArrayList<String> vpc;
     private ArrayList<String> cuc;
     ArrayList[] allSchoolCandidates = new ArrayList[6];
+
+    public ArrayList[] getAllSchoolCandidates() {
+        return allSchoolCandidates;
+    }
+
     ArrayList[][] candidates = new ArrayList[3][3];
     private String link;
     private String password;
@@ -85,7 +90,6 @@ public class Setup {
                 } else {
                     candidates[x][y].add(line);
                 }
-                System.out.println(line);
             }
         } catch (Exception e) {
         }
@@ -214,6 +218,7 @@ public class Setup {
 
     }
 
+   
     public String getLink() {
         return link;
     }
@@ -221,5 +226,38 @@ public class Setup {
     public String getPassword() {
         return password;
     }
+    
+    public String[] getAllSPres(){
+        return getStringArrayAllSchoolCandidate(0);
+    }
 
+    public String[] getAllSVP(){
+        return getStringArrayAllSchoolCandidate(1);
+    }
+    
+    public String[] getAllSCPres(){
+        return getStringArrayAllSchoolCandidate(2);
+    }
+
+    public String[] getAllSCVP(){
+        return getStringArrayAllSchoolCandidate(3);
+    }
+    
+    public String[] getAllSSec(){
+        return getStringArrayAllSchoolCandidate(4);
+    }
+
+    public String[] getAllSTres(){
+        return getStringArrayAllSchoolCandidate(5);
+    }
+    
+    private String[] getStringArrayAllSchoolCandidate(int position){
+        String[] temp = new String[allSchoolCandidates[position].size()];
+        int i = 0;
+        for(String a:(ArrayList<String>)allSchoolCandidates[position]){
+            temp[i]=a;
+            i++;
+        }
+        return temp;   
+    }
 }

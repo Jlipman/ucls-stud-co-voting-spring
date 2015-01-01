@@ -37,9 +37,15 @@ public class HelperMethods {
         for (int i = 0; i < queue.size(); i++) {
             votes1.add(queue.get(i).getCell().getInputValue());
         }
+        boolean votedFor = false;
         if ((!uIndex.equals("not"))) {
-            String votedfor = feed.get(index + 1).getCell().getInputValue();
-            if (votedfor.equals("0")) {
+            for(int i = 1; i<19; i++){
+                if(!feed.get(index + i).getCell().getInputValue().equals("0")){
+                    votedFor=true;
+                    break;
+                }
+            }
+            if (!votedFor) {
                 ID = feed.get(index);
                 return true;
 
@@ -49,16 +55,32 @@ public class HelperMethods {
         return false;
     }
 
-    public void vote(FullBallot who, String username) {
+    public void voteForGrade(GradeBallot who, String username) {
 
         String RCNotation = ID.getId().substring(ID.getId().lastIndexOf('/') + 1);
         //use grade variable here
         int y = Integer.parseInt(RCNotation.substring(1, RCNotation.indexOf("C")));
-        pass.set(2, y, who.getPres());
-        pass.set(3, y, who.getVp());
-        pass.set(4, y, who.getCu1());
-        pass.set(5, y, who.getCu2());
+        int x = grade*4;
+        pass.set(x+2, y, who.getPres());
+        pass.set(x+3, y, who.getVp());
+        pass.set(x+4, y, who.getCu1());
+        pass.set(x+5, y, who.getCu2());
     }
+    
+    public void voteForAllSchool(AllSchoolBallot who, String username) {
+
+        String RCNotation = ID.getId().substring(ID.getId().lastIndexOf('/') + 1);
+        //use grade variable here
+        int y = Integer.parseInt(RCNotation.substring(1, RCNotation.indexOf("C")));
+        int x = 3*4;
+        pass.set(x+2, y, who.getPres());
+        pass.set(x+3, y, who.getVp());
+        pass.set(x+4, y, who.getCupres());
+        pass.set(x+5, y, who.getCuvp());
+        pass.set(x+4, y, who.getSec());
+        pass.set(x+5, y, who.getTres());
+    }
+    
     public int getGrade(){
         return grade;
     }
