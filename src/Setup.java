@@ -78,16 +78,23 @@ public class Setup {
 
         int numberOfVoters = Integer.parseInt(JOptionPane.showInputDialog("Number of voters: "));
         DriveNewThreadSet newThread = new DriveNewThreadSet(d);
-        for (int j = 1; j < numberOfVoters + 1; j++) {
+        int gradeSize = (numberOfVoters+3) / 3;
+        for (int j = 1; j < numberOfVoters + 3; j++) {
             String next = "";
-            for (int i = 0; i < 6; i++) {
-                char c = chars.charAt(R.nextInt(chars.length()));
-                next += c;
+            if (j == gradeSize || j == gradeSize*2) {
+                next = "grade";
+            } else {
+
+                for (int i = 0; i < 6; i++) {
+                    char c = chars.charAt(R.nextInt(chars.length()));
+                    next += c;
+                }
+
             }
 
             d.set(1, j, next);
 
-            for (int i = 2; i < 6; i++) {
+            for (int i = 2; i < 20; i++) {
                 newThread.set(i, j, "0");
             }
             try {
@@ -97,15 +104,15 @@ public class Setup {
             }
             foo.add(next);
             length = j;
-            System.out.println(j + "/" + (numberOfVoters));
+            System.out.println(j + "/" + (numberOfVoters+3));
 
         }
-        for (int i = 1; i < 6; i++) {
+        for (int i = 1; i < 20; i++) {
             d.set(i, length + 1, "stop");
         }
         System.out.println("setting up document");
         for (int i = 1; i < 20; i++) {
-            for (int k = 6; k < 12; k++) {
+            for (int k = 20; k < 38; k++) {
                 if (k % 10 == 0) {
                     d.set(k, i, "0");
                 } else {

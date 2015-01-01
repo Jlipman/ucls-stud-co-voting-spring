@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  *
  * @author Lipman
  */
-public class VoterGUI extends javax.swing.JFrame {
+public class AllSchoolVoterGUI extends javax.swing.JFrame {
 
 private Setup setup;
     private HelperMethods helper;
@@ -23,9 +23,9 @@ private Setup setup;
     
     
     /**
-     * Creates new form VoterGUI
+     * Creates new form GradeVoterGUI
      */
-    public VoterGUI(Setup toSetup, HelperMethods h, String c) {
+    public AllSchoolVoterGUI(Setup toSetup, HelperMethods h, String c) {
         initComponents();
         setup=toSetup;
         helper=h;
@@ -191,20 +191,21 @@ private Setup setup;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VoterGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GradeVoterGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VoterGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GradeVoterGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VoterGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GradeVoterGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VoterGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GradeVoterGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VoterGUI(toSetup,h,c).setVisible(true);
+                new GradeVoterGUI(toSetup,h,c).setVisible(true);
             }
         });
     }

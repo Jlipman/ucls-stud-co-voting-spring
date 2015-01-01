@@ -148,7 +148,7 @@ public class CodeValidationGUI extends javax.swing.JFrame {
                 //adds candidate selection dialog
                 
                 
-                VoterGUI.main(setup, helper, code);
+                GradeVoterGUI.main(setup, helper, code);
 
             } else {
                 JOptionPane.showMessageDialog(this,"You must have already voted or entered your ID in wrong");
