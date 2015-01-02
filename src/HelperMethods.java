@@ -77,8 +77,8 @@ public class HelperMethods {
         pass.set(x+3, y, who.getVp());
         pass.set(x+4, y, who.getCupres());
         pass.set(x+5, y, who.getCuvp());
-        pass.set(x+4, y, who.getSec());
-        pass.set(x+5, y, who.getTres());
+        pass.set(x+6, y, who.getSec());
+        pass.set(x+7, y, who.getTres());
     }
     
     public int getGrade(){

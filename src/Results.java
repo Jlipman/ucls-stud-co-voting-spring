@@ -19,12 +19,12 @@ public class Results {
 
         setup.getDriveVals(link, password);
         Drive results = new Drive(link, password, "Election");
-        ArrayList[][] candidates = new ArrayList[4][2];
+        ArrayList[][] candidates = new ArrayList[18][2];
         DriveNewThreadSet newThread = new DriveNewThreadSet(results);
 
-        String[] current = new String[4];
+        String[] current = new String[18];
 
-        for (int x = 0; x < 4; x++) {
+        for (int x = 0; x < 18; x++) {
             for (int y = 0; y < 2; y++) {
                 if (y == 0) {
                     candidates[x][y] = new ArrayList<String>();
@@ -39,13 +39,13 @@ public class Results {
 
         for (int i = 1; true; i++) {
             System.out.println(i);
-            for (int u = 0; u < 4; u++) {
+            for (int u = 0; u < 18; u++) {
                 current[u] = get(u + 2, i, drive);
             }
             if (current[1].equals("stop")) {
                 break;
             } else {
-                for (int j = 0; j < 4; j++) {
+                for (int j = 0; j < 18; j++) {
                     if (!current[j].equals("0")) {
                         boolean voteAdded = false;
                         for (int u = 0; u < candidates[j][0].size(); u++) {
@@ -62,23 +62,24 @@ public class Results {
                 }
             }
         }
-
-        //agregate the two cu columns
-        for (int x = 0; x < candidates[3][0].size(); x++) {
-            String cand = (String) candidates[3][0].get(x);
-            for (int y = 0; y < candidates[2][0].size(); y++) {
-                if (cand.equals(candidates[2][0].get(y))) {
-                    candidates[2][1].set(y, (Integer) candidates[3][1].get(x) + (Integer) (candidates[2][1].get(y)));
-                    candidates[3][0].remove(x);
-                    candidates[3][1].remove(x);
-                    x--;
-                    break;
+        for(int i = 2; i<11; i+=4){
+            //agregate the two cu columns
+            for (int x = 0; x < candidates[i+1][0].size(); x++) {
+                String cand = (String) candidates[i+1][0].get(x);
+                for (int y = 0; y < candidates[i][0].size(); y++) {
+                    if (cand.equals(candidates[i][0].get(y))) {
+                        candidates[i][1].set(y, (Integer) candidates[i+1][1].get(x) + (Integer) (candidates[i][1].get(y)));
+                        candidates[i+1][0].remove(x);
+                        candidates[i+1][1].remove(x);
+                        x--;
+                        break;
+                    }
                 }
             }
-        }
-        for (int f = 0; f < candidates[3][0].size(); f++) {
-            candidates[2][0].add(candidates[3][0].get(f));
-            candidates[2][1].add(candidates[3][1].get(f));
+            for (int f = 0; f < candidates[i+1][0].size(); f++) {
+                candidates[i][0].add(candidates[i+1][0].get(f));
+                candidates[i][1].add(candidates[i+1][1].get(f));
+            }
         }
 
         System.out.println("finished fethching data");
@@ -94,28 +95,32 @@ public class Results {
         }
         int biggest = 0;
         int indexofbiggest = 0;
-        for (int j = 0; j < 4; j++) {
-            if (j == 3) {
-                candidates[2][0].remove(indexofbiggest);
-                candidates[2][1].remove(indexofbiggest);
+        int spreadsheetx =0;
+        for (int j = 0; j < 18; j++) {
+            
+            spreadsheetx++;
+            if (j == 3||j==7||j==11) {
+                candidates[j-1][0].remove(indexofbiggest);
+                candidates[j-1][1].remove(indexofbiggest);
 
                 biggest = 0;
                 indexofbiggest = 0;
-                for (int i = 0; i < candidates[2][1].size(); i++) {
-                    if ((Integer) candidates[2][1].get(i) > biggest) {
-                        biggest = (Integer) candidates[2][1].get(i);
+                for (int i = 0; i < candidates[j-1][1].size(); i++) {
+                    if ((Integer) candidates[j-1][1].get(i) > biggest) {
+                        biggest = (Integer) candidates[j-1][1].get(i);
                         indexofbiggest = i;
                     }
                 }
                 checkForTie(j-1, candidates, indexofbiggest, biggest, writer);
                 try {
-                    writer.write(positions[2] + " " + candidates[2][0].get(indexofbiggest) + "\n");
+                    writer.write(/*positions[j-1] + " " + */candidates[j-1][0].get(indexofbiggest) + "\n");
                 } catch (Exception e) {
                     System.out.println(e);
                 }
                 
                 continue;
             }
+            
             biggest = 0;
             indexofbiggest = 0;
             for (int i = 0; i < candidates[j][1].size(); i++) {
@@ -126,19 +131,19 @@ public class Results {
             }
 
             //deal with the possibility of a tie for pres and vice pres
-            if (j < 2) {
+            if (j < 2||(j>3&&j<6)||(j>7&&j<10)) {
                 checkForTie(j, candidates, indexofbiggest, biggest, writer);
             }
 
             try {
-                writer.write(positions[j] + " " + candidates[j][0].get(indexofbiggest) + "\n");
+                writer.write(/*positions[j] + " " + */candidates[j][0].get(indexofbiggest) + "\n");
             } catch (Exception e) {
                 System.out.println(e);
             }
             System.out.println(candidates[j][0].get(indexofbiggest));
             for (int y = 0; y < candidates[j][0].size(); y++) {
-                newThread.set((j * 2) + 6, y + 1, candidates[j][0].get(y).toString());
-                results.set((j * 2) + 7, y + 1, "" + candidates[j][1].get(y).toString());
+                newThread.set((spreadsheetx*2) + 20, y + 1, candidates[j][0].get(y).toString());
+                results.set((spreadsheetx*2) + 21, y + 1, "" + candidates[j][1].get(y).toString());
             }
 
         }
