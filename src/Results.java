@@ -131,7 +131,7 @@ public class Results {
             }
 
             //deal with the possibility of a tie for pres and vice pres
-            if (j < 2||(j>3&&j<6)||(j>7&&j<10)) {
+            if (j < 2||(j>3&&j<6)||(j>7&&j<10)||(j>11)) {
                 checkForTie(j, candidates, indexofbiggest, biggest, writer);
             }
 
