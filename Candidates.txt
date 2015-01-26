@@ -153,3 +153,44 @@ Luce
 Luciana
 Nell
 Solinus
+
+Apple	Female	27
+Basil	Male	56
+Basil	Female	21
+Berry	Male	5
+Bison	Male	5
+Brie	Female	51
+Candy	Female	62
+Chardonnay	Female	5
+Curry	Male	7
+Danish	Male	6
+Dasani	Female	34
+
+Dasani	Male	9
+Dijon	Male	19
+Evian	Male	8
+Evian	Female	8
+Heinz	Male	5
+Hennessy	Female	62
+Honey	Female	57
+Kale	Male	257
+Kale	Female	5
+Kipper	Male	6
+
+Maple	Female	44
+Pike	Male	6
+Romaine	Male	6
+Rye	Female	5
+Shiraz	Male	6
+Skyy	Female	94
+Skyy	Male	7
+Sundae	Female	7
+
+Gnowee 
+Walo 
+Wuriupranili 
+Yhi 
+Wasterzhi 
+Palmarene mythology 
+Malakbel 
+Yarhibol 
