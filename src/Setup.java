@@ -117,7 +117,7 @@ public class Setup {
         String chars = "123456789qwertyuiopasdfghjkzxcvbnmQWERTYUPASFGHJKLZXCVBNM";
         int length = 0;
 
-        int numberOfVoters = Integer.parseInt(JOptionPane.showInputDialog("Number of voters: "));
+        int numberOfVoters = 3*Integer.parseInt(JOptionPane.showInputDialog("Number of voters per grade: "));
         DriveNewThreadSet newThread = new DriveNewThreadSet(d);
         int gradeSize = (numberOfVoters + 3) / 3;
         for (int j = 1; j < numberOfVoters + 3; j++) {
