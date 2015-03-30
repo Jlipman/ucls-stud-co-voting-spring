@@ -1,3 +1,10 @@
+Codes are formatted as follows
+//Juniors
+//Sophomore
+//Freshmen
+
+Candidates are formatted as follows:
+
 All School President
 
 All School Vice President
