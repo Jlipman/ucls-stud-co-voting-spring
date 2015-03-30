@@ -1,6 +1,8 @@
 Codes are formatted as follows
 //Juniors
+grade
 //Sophomore
+grade
 //Freshmen
 
 Candidates are formatted as follows:
