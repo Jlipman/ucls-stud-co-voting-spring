@@ -28,7 +28,7 @@ private Setup setup;
     /**
      * Creates new form GradeVoterGUI
      */
-    public AllSchoolVoterGUI(Setup toSetup, HelperMethods h, String c) {
+    public AllSchoolVoterGUI( Setup toSetup, HelperMethods h, String c) {
         initComponents();
         setup=toSetup;
         helper=h;
@@ -193,13 +193,16 @@ private Setup setup;
             if (cvresult.equals(cpresult)) {
                 JOptionPane.showMessageDialog(this, "You selected the same candidate for both Cultural Union inputs. You must select two different candidates");
             } else {
-                AllSchoolBallot ballot = new AllSchoolBallot();
+                final AllSchoolBallot ballot = new AllSchoolBallot();
                 ballot.setPres(presresult);
                 ballot.setVp(vpresult);
                 ballot.setCupres(cpresult);
                 ballot.setCuvp(cvresult);
                 ballot.setSec(secresult);
                 ballot.setTres(tresresult);
+                
+                
+                
                 Thread thread;
                 thread = new Thread(){
                     public void run(){
@@ -221,7 +224,7 @@ private Setup setup;
     /**
      * @param args the command line arguments
      */
-    public static void main(Setup toSetup, HelperMethods h, String c) {
+    public static void main(final Setup toSetup, final HelperMethods h, final String c) {
         
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

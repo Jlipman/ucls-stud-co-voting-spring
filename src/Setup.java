@@ -4,9 +4,7 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.JOptionPane;
-import java.nio.file.Path;
 import java.util.Scanner;
-import java.nio.file.Paths;
 
 /**
  * Write a description of class Setup here.
@@ -71,8 +69,8 @@ public class Setup {
         int position = 0;
         int x = 0;
         int y = 0;
-        Path path = Paths.get("candidates.txt");
-        try (Scanner scanner = new Scanner(path)) {
+        try {
+            Scanner scanner = new Scanner(new File("candidates.txt"));
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 if (line.isEmpty()) {
@@ -100,9 +98,13 @@ public class Setup {
         ArrayList<String> foo = new ArrayList<String>();
         String link = U;
         String password = P;
-        Drive d;
+        final Drive d;
 
         d = new Drive(link, password, "Election");
+       
+        
+        d.cleanWorksheet();
+        d.resetLink();
 
         Random R = new Random();
         FileWriter writer = null;
@@ -134,10 +136,6 @@ public class Setup {
             }
 
             d.set(1, j, next);
-
-            for (int i = 2; i < 20; i++) {
-                newThread.set(i, j, "0");
-            }
             try {
                 writer.write(next + "\n");
             } catch (Exception e) {
@@ -148,20 +146,12 @@ public class Setup {
             System.out.println(j + "/" + (numberOfVoters + 3));
 
         }
+        
         for (int i = 1; i < 20; i++) {
             d.set(i, length + 1, "stop");
         }
         System.out.println("setting up document");
-        for (int i = 1; i < 20; i++) {
-            for (int k = 20; k < 38; k++) {
-                if (k % 10 == 0) {
-                    d.set(k, i, "0");
-                } else {
-                    newThread.set(k, i, "0");
-                }
-            }
-            System.out.println(i + "/20");
-        }
+        
         try {
             writer.flush();
             writer.close();

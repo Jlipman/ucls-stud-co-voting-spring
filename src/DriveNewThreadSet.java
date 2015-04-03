@@ -21,7 +21,7 @@ public class DriveNewThreadSet {
         
     }
 
-    public void set(int x, int y, String value) {
+    public void set(final int x, final int y, final String value) {
         System.out.println("creating new thread");
         Thread thread;
         thread = new Thread() {

@@ -160,7 +160,7 @@ private Setup setup;
             if (result.equals(curesult)) {
                 JOptionPane.showMessageDialog(this, "You selected the same candidate for both Cultural Union inputs. You must select two different candidates");
             } else {
-                GradeBallot ballot = new GradeBallot();
+                final GradeBallot ballot = new GradeBallot();
                 ballot.setPres(presresult);
                 ballot.setVp(vpresult);
                 ballot.setCu1(curesult);
@@ -187,7 +187,7 @@ private Setup setup;
     /**
      * @param args the command line arguments
      */
-    public static void main(Setup toSetup, HelperMethods h, String c) {
+    public static void main(final Setup toSetup, final HelperMethods h, final String c) {
         
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

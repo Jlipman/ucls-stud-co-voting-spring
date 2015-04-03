@@ -17,16 +17,25 @@ public class HelperMethods {
     }
 
     public boolean checkIfValid(String username) {
+        
+    
+        
         int y = 0;
         int index = 0;
         grade=0;
         String uIndex = "not";
         ArrayList<CellEntry> feed = pass.getList();
+        String value="";
         while (!(feed.get(y).getCell().getInputValue().equals("stop"))) {
-            if (feed.get(y).getCell().getInputValue().equals("grade")) {
+            value = feed.get(y).getCell().getInputValue();
+            if(value.equals("0")){
+                y++;
+                continue;
+            }else
+            if (value.equals("grade")) {
                 grade++;
-            }
-            if (feed.get(y).getCell().getInputValue().equals(username)) {
+            }else
+            if (value.equals(username)) {
                 uIndex = feed.get(y).getId().substring(feed.get(y).getId().lastIndexOf('/') + 1);
                 index = y;
                 break;
@@ -65,6 +74,8 @@ public class HelperMethods {
         pass.set(x+3, y, who.getVp());
         pass.set(x+4, y, who.getCu1());
         pass.set(x+5, y, who.getCu2());
+        
+        
     }
     
     public void voteForAllSchool(AllSchoolBallot who, String username) {
@@ -79,6 +90,15 @@ public class HelperMethods {
         pass.set(x+5, y, who.getCuvp());
         pass.set(x+6, y, who.getSec());
         pass.set(x+7, y, who.getTres());
+//        Thread thread;
+//        thread = new Thread() {
+//            public void run() {
+//                try{
+//                
+//                }catch(Exception e){System.out.println(e);}
+//            }
+//        };
+//        thread.start();
     }
     
     public int getGrade(){

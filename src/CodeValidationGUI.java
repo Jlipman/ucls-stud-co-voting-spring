@@ -1,5 +1,7 @@
 
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /*
@@ -23,6 +25,7 @@ public class CodeValidationGUI extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.WHITE);
         setup=toSetup;
         helper=h;
+        working.setText("");
     }
 
     /**
@@ -38,6 +41,7 @@ public class CodeValidationGUI extends javax.swing.JFrame {
         codeEntry = new javax.swing.JTextField();
         quit = new javax.swing.JButton();
         SchoolLogo = new javax.swing.JLabel();
+        working = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 0, 0));
@@ -76,34 +80,40 @@ public class CodeValidationGUI extends javax.swing.JFrame {
         SchoolLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/SchoolLogo.gif"))); // NOI18N
         SchoolLogo.setText("jLabel1");
 
+        working.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        working.setText("Working...");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(300, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(codeEntry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Submit))
-                    .addComponent(SchoolLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(300, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(quit, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(300, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(codeEntry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(53, 53, 53)
+                        .addComponent(Submit))
+                    .addComponent(SchoolLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(working, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(300, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addComponent(SchoolLogo)
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(codeEntry, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Submit))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 141, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(working, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
                 .addComponent(quit, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -141,8 +151,15 @@ public class CodeValidationGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_quitMouseClicked
     
     private void vote(){
-        if (helper.checkIfValid(codeEntry.getText())) {
-               
+        
+        working.setText("Working");
+        System.out.println("jhlkj");
+         
+        Boolean isValid = helper.checkIfValid(codeEntry.getText());
+        
+        
+        if (isValid) {
+            
                 code = codeEntry.getText();
                 this.dispose();
                 //adds candidate selection dialog
@@ -151,6 +168,7 @@ public class CodeValidationGUI extends javax.swing.JFrame {
                 GradeVoterGUI.main(setup, helper, code);
 
             } else {
+                working.setText("");
                 JOptionPane.showMessageDialog(this,"You must have already voted or entered your ID in wrong");
             }
         
@@ -158,7 +176,7 @@ public class CodeValidationGUI extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(Setup toSetup, HelperMethods h) {
+    public static void main(final Setup toSetup, final HelperMethods h) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -195,6 +213,7 @@ public class CodeValidationGUI extends javax.swing.JFrame {
     private javax.swing.JButton Submit;
     private javax.swing.JTextField codeEntry;
     private javax.swing.JButton quit;
+    private javax.swing.JLabel working;
     // End of variables declaration//GEN-END:variables
 
 }
